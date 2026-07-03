@@ -7,5 +7,13 @@ import { Pokemon } from '../../models/pokemon.model';
   styleUrls: ['./pokemon-card.component.scss']
 })
 export class PokemonCardComponent {
+
   @Input() pokemon!: Pokemon;
+
+  mostrarDetalle = false;
+
+  toggleDetalle(): void {
+    this.mostrarDetalle = !this.mostrarDetalle;
+  }
+
 }
