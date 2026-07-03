@@ -1,13 +1,55 @@
-<article class="pokemon-card">
-  <img class="pokemon-card__image" [src]="pokemon.image" [alt]="pokemon.name">
+<article
+  class="pokemon-card"
+  (click)="toggleDetalle()">
 
-  <h2 class="pokemon-card__name">{{ pokemon.name }}</h2>
+  <img
+    class="pokemon-card__image"
+    [src]="pokemon.image"
+    [alt]="pokemon.name">
 
-  <ul class="pokemon-card__details">
-    <li><strong>Altura:</strong> {{ pokemon.height }}</li>
-    <li><strong>Peso:</strong> {{ pokemon.weight }}</li>
-    <li><strong>Experiencia base:</strong> {{ pokemon.baseExperience }}</li>
-    <li><strong>Tipos:</strong> {{ pokemon.types.join(', ') }}</li>
-    <li><strong>Habilidades:</strong> {{ pokemon.abilities.join(', ') }}</li>
-  </ul>
+  <h2 class="pokemon-card__name">
+    {{ pokemon.name | titlecase }}
+  </h2>
+
+  <p class="pokemon-card__type">
+    {{ pokemon.types[0] | titlecase }}
+  </p>
+
+  <div
+    class="pokemon-card__details"
+    *ngIf="mostrarDetalle">
+
+    <div class="pokemon-card__divider"></div>
+
+    <p>
+      <strong>Height:</strong>
+      {{ pokemon.height }}
+    </p>
+
+    <p>
+      <strong>Weight:</strong>
+      {{ pokemon.weight }}
+    </p>
+
+    <p>
+      <strong>Base experience:</strong>
+      {{ pokemon.baseExperience }}
+    </p>
+
+    <p>
+      <strong>Types:</strong>
+      {{ pokemon.types.join(', ') }}
+    </p>
+
+    <p>
+      <strong>Abilities:</strong>
+      {{ pokemon.abilities.join(', ') }}
+    </p>
+
+  </div>
+
+  <span class="pokemon-card__id">
+    #{{ pokemon.id }}
+  </span>
+
 </article>
