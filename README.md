@@ -1,27 +1,38 @@
-# ConsumoPokeAPI
+# Pokédex 
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.17.
 
-## Development server
+## Tecnologías
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Angular 17 (NgModules, sin standalone components)
+- TypeScript
+- RxJS
+- SCSS
 
-## Code scaffolding
+## Funcionamiento
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+1. `PokemonService.getPokemonList()` consulta el endpoint de lista (`/pokemon?limit=&offset=`), que solo devuelve `name` y `url` por cada Pokémon.
+2. Con `switchMap` se toma esa respuesta y se dispara un `forkJoin` con las peticiones de detalle de cada Pokémon en paralelo.
+3. Con `map` se transforma el arreglo de respuestas crudas de la API al modelo `Pokemon` que usa la vista.
+4. `catchError` captura cualquier fallo de red o de la API y lo convierte en un mensaje visible para el usuario.
+5. `PokemonListComponent` se suscribe al observable en `ngOnInit`, mostrando un estado de carga mientras la petición está en curso y un mensaje de error si algo falla.
 
-## Build
+## Cómo ejecutar el proyecto
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1. Clonar el repositorio:
 
-## Running unit tests
+   git clone https://github.com/Juanes-URBA/ConsumoPokeApiAngular.git
+   cd ConsumoPokeApiAngular
+ 
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+2. Instalar las dependencias:
+  
+   npm install
+   
 
-## Running end-to-end tests
+3. Levantar el servidor de desarrollo:
+   
+   ng serve
+   
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+4. Abrir el navegador en `http://localhost:4200`
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
