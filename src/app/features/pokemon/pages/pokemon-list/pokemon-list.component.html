@@ -1,0 +1,52 @@
+<section class="pokemon-list">
+
+  <div class="pokemon-list__toolbar">
+    <label for="pageSize">Mostrar:</label>
+    <select
+      id="pageSize"
+      [value]="pageSize"
+      (change)="cambiarTamanoPagina(+$any($event.target).value)">
+      <option *ngFor="let tamano of tamanosPagina" [value]="tamano">{{ tamano }}</option>
+    </select>
+  </div>
+
+  <p *ngIf="cargando" class="pokemon-list__estado">Cargando Pokémon...</p>
+
+  <p *ngIf="mensajeError" class="pokemon-list__estado pokemon-list__estado--error">
+    {{ mensajeError }}
+  </p>
+
+  <div *ngIf="!cargando && !mensajeError" class="pokemon-list__grid">
+    <app-pokemon-card
+      *ngFor="let pokemon of pokemons"
+      [pokemon]="pokemon">
+    </app-pokemon-card>
+  </div>
+
+  <nav *ngIf="!cargando && !mensajeError" class="pagination">
+    <button
+      class="pagination__btn"
+      [disabled]="currentPage === 1"
+      (click)="paginaAnterior()">
+      &lt; Anterior
+    </button>
+
+    <button
+      *ngFor="let pagina of paginasVisibles"
+      class="pagination__btn"
+      [class.pagination__btn--activo]="pagina === currentPage"
+      (click)="cambiarPagina(pagina)">
+      {{ pagina }}
+    </button>
+
+    <span *ngIf="paginasVisibles[paginasVisibles.length - 1] < totalPages">...</span>
+
+    <button
+      class="pagination__btn"
+      [disabled]="currentPage === totalPages"
+      (click)="paginaSiguiente()">
+      Siguiente &gt;
+    </button>
+  </nav>
+
+</section>
